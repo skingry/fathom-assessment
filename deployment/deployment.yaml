@@ -19,6 +19,27 @@ spec:
       - name: coolkit
         image: coolkit:latest
         imagePullPolicy: IfNotPresent
+        env:
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: secrets
+              key: hostname
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: secrets
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: secrets
+              key: password
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: secrets
+              key: dbname
         resources:
           requests:
             memory: 4096Mi
@@ -40,3 +61,7 @@ spec:
           initialDelaySeconds: 1
           periodSeconds: 5
           timeoutSeconds: 1
+      volumes:
+      - name: secrets
+        secret:
+          secretName: secrets
