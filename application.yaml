@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: coolkit
+  namespace: default
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/skingry/fathom-assessment
+    targetRevision: HEAD
+    path: deployment
+  destination:
+    server: https://192.168.49.2:8443 # Local Minikube
+    namespace: default

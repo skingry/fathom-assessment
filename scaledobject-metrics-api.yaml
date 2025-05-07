@@ -1,0 +1,16 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: coolkit
+  namespace: keda
+spec:
+  minReplicaCount: 10
+  maxReplicaCount: 100
+  scaleTargetRef:
+    name: coolkit
+  triggers:
+    - type: metrics-api
+      metadata:
+        targetValue: "1" # What is the value of the metric we're looking to achieve?
+        url: "http://scaler.production.svc.cluster.local/estimate/coolkit"
+        valueLocation: 'location.of.metric' # What is the name of the metric?

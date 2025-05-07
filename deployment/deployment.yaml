@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coolkit
+  labels:
+    app: coolkit
+spec:
+  replicas: 2 # NOTE: this is the max I can do on my laptop because of the resource requests as outlined in the spec
+  selector:
+    matchLabels:
+      app: coolkit
+  template:
+    metadata:
+      labels:
+        app: coolkit
+    spec:
+      containers:
+      - name: coolkit
+        image: coolkit:latest
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: 4096Mi
+            cpu: 2000m
+        ports:
+        - containerPort: 8080
+        - containerPort: 2345
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 2345
+          initialDelaySeconds: 1
+          periodSeconds: 5
+          timeoutSeconds: 1
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 2345
+          initialDelaySeconds: 1
+          periodSeconds: 5
+          timeoutSeconds: 1
