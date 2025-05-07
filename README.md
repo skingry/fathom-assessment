@@ -32,17 +32,17 @@ The application is containerized using Docker. The `Dockerfile` located in the `
 
 To build the Docker image:
 
-\```
+```
 docker build -t coolkit:latest .
-\```
+```
 
 ### Running the Container Locally
 
 To run the container locally:
 
-\```
+```
 docker run -p 8080:8080 -p 2345:2345 coolkit:latest
-\```
+```
 
 ## Kubernetes Deployment
 
@@ -59,10 +59,10 @@ In addition in the root directory, there is an autoscaling manifest:
 
 To deploy the application to the Kubernetes cluster via ArgoCD:
 
-\```
+```
 kubectl apply -f application.yaml
 kubectl apply -f scaledobject-metrics-api.yaml
-\```
+```
 
 ### Scaling
 
